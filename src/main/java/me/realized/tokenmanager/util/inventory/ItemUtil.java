@@ -26,7 +26,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
@@ -45,29 +44,29 @@ public final class ItemUtil {
                 enchantments.put(enchantment.getKey().getKey(), enchantment);
             }
         });
-        enchantments.put("power", Enchantment.ARROW_DAMAGE);
-        enchantments.put("flame", Enchantment.ARROW_FIRE);
-        enchantments.put("infinity", Enchantment.ARROW_INFINITE);
-        enchantments.put("punch", Enchantment.ARROW_KNOCKBACK);
-        enchantments.put("sharpness", Enchantment.DAMAGE_ALL);
-        enchantments.put("baneofarthopods", Enchantment.DAMAGE_ARTHROPODS);
-        enchantments.put("smite", Enchantment.DAMAGE_UNDEAD);
-        enchantments.put("efficiency", Enchantment.DIG_SPEED);
-        enchantments.put("unbreaking", Enchantment.DURABILITY);
+        enchantments.put("power", Enchantment.POWER);
+        enchantments.put("flame", Enchantment.FLAME);
+        enchantments.put("infinity", Enchantment.INFINITY);
+        enchantments.put("punch", Enchantment.PUNCH);
+        enchantments.put("sharpness", Enchantment.SHARPNESS);
+        enchantments.put("baneofarthopods", Enchantment.BANE_OF_ARTHROPODS);
+        enchantments.put("smite", Enchantment.SMITE);
+        enchantments.put("efficiency", Enchantment.EFFICIENCY);
+        enchantments.put("unbreaking", Enchantment.UNBREAKING);
         enchantments.put("thorns", Enchantment.THORNS);
         enchantments.put("fireaspect", Enchantment.FIRE_ASPECT);
         enchantments.put("knockback", Enchantment.KNOCKBACK);
-        enchantments.put("fortune", Enchantment.LOOT_BONUS_BLOCKS);
-        enchantments.put("looting", Enchantment.LOOT_BONUS_MOBS);
-        enchantments.put("respiration", Enchantment.OXYGEN);
-        enchantments.put("blastprotection", Enchantment.PROTECTION_EXPLOSIONS);
-        enchantments.put("featherfalling", Enchantment.PROTECTION_FALL);
-        enchantments.put("fireprotection", Enchantment.PROTECTION_FIRE);
-        enchantments.put("projectileprotection", Enchantment.PROTECTION_PROJECTILE);
-        enchantments.put("protection", Enchantment.PROTECTION_ENVIRONMENTAL);
+        enchantments.put("fortune", Enchantment.FORTUNE);
+        enchantments.put("looting", Enchantment.LOOTING);
+        enchantments.put("respiration", Enchantment.RESPIRATION);
+        enchantments.put("blastprotection", Enchantment.BLAST_PROTECTION);
+        enchantments.put("featherfalling", Enchantment.FEATHER_FALLING);
+        enchantments.put("fireprotection", Enchantment.FIRE_PROTECTION);
+        enchantments.put("projectileprotection", Enchantment.PROJECTILE_PROTECTION);
+        enchantments.put("protection", Enchantment.PROTECTION);
         enchantments.put("silktouch", Enchantment.SILK_TOUCH);
-        enchantments.put("aquaaffinity", Enchantment.WATER_WORKER);
-        enchantments.put("luck", Enchantment.LUCK);
+        enchantments.put("aquaaffinity", Enchantment.AQUA_AFFINITY);
+        enchantments.put("luck", Enchantment.LUCK_OF_THE_SEA);
         ENCHANTMENTS = Collections.unmodifiableMap(enchantments);
 
         final Map<String, PotionEffectType> effects = new HashMap<>();
@@ -79,16 +78,16 @@ public final class ItemUtil {
             effects.put(type.getName(), type);
         });
         effects.put("speed", PotionEffectType.SPEED);
-        effects.put("slowness", PotionEffectType.SLOW);
-        effects.put("haste", PotionEffectType.FAST_DIGGING);
-        effects.put("fatigue", PotionEffectType.SLOW_DIGGING);
-        effects.put("strength", PotionEffectType.INCREASE_DAMAGE);
-        effects.put("heal", PotionEffectType.HEAL);
-        effects.put("harm", PotionEffectType.HARM);
-        effects.put("jump", PotionEffectType.JUMP);
-        effects.put("nausea", PotionEffectType.CONFUSION);
+        effects.put("slowness", PotionEffectType.SLOWNESS);
+        effects.put("haste", PotionEffectType.HASTE);
+        effects.put("fatigue", PotionEffectType.MINING_FATIGUE);
+        effects.put("strength", PotionEffectType.STRENGTH);
+        effects.put("heal", PotionEffectType.INSTANT_HEALTH);
+        effects.put("harm", PotionEffectType.INSTANT_DAMAGE);
+        effects.put("jump", PotionEffectType.JUMP_BOOST);
+        effects.put("nausea", PotionEffectType.NAUSEA);
         effects.put("regeneration", PotionEffectType.REGENERATION);
-        effects.put("resistance", PotionEffectType.DAMAGE_RESISTANCE);
+        effects.put("resistance", PotionEffectType.RESISTANCE);
         effects.put("fireresistance", PotionEffectType.FIRE_RESISTANCE);
         effects.put("waterbreathing", PotionEffectType.WATER_BREATHING);
         effects.put("invisibility", PotionEffectType.INVISIBILITY);
@@ -142,7 +141,7 @@ public final class ItemUtil {
                     }
 
                     final PotionMeta meta = (PotionMeta) result.getItemMeta();
-                    meta.setBasePotionData(new PotionData(type, values.contains("extended"), values.contains("strong")));
+                    meta.setBasePotionType(type);
                     result.setItemMeta(meta);
                 } else if (CompatUtil.isPre1_13() && material.name().equals("MONSTER_EGG")) {
                     final EntityType type;
@@ -224,11 +223,7 @@ public final class ItemUtil {
         }
 
         if (key.equalsIgnoreCase("unbreakable") && value.equalsIgnoreCase("true")) {
-            if (CompatUtil.isPre1_12()) {
-                meta.spigot().setUnbreakable(true);
-            } else {
-                meta.setUnbreakable(true);
-            }
+            meta.setUnbreakable(true);
 
             item.setItemMeta(meta);
             return;
