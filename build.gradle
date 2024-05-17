@@ -29,6 +29,7 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         include '**/*.yml'
         filter(ReplaceTokens, tokens: [NAME: project.name, VERSION: project.version, SHADED_GROUP: group])
+        duplicatesStrategy = DuplicatesStrategy.INHERIT
     }
 }
 
