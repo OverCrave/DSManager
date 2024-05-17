@@ -8,12 +8,14 @@ buildscript {
 
     dependencies {
         classpath 'com.github.johnrengelman:shadow:8.1.1'
+        classpath 'io.freefair.gradle:lombok-plugin:8.6'
     }
 }
 
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'io.freefair.lombok' version '8.6'
 }
 
 group 'me.realized'
