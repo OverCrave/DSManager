@@ -7,13 +7,13 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
+        classpath 'com.github.johnrengelman:shadow:8.1.1'
     }
 }
 
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '2.0.4'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group 'me.realized'
