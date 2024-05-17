@@ -92,9 +92,12 @@ clean.doFirst {
 shadowJar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     destinationDirectory = file("$rootDir/out/")
-    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
     archiveBaseName = 'TokenManager'
     archiveClassifier = null
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+    }
 
     dependencies {
         include(dependency('redis.clients:.*'))
