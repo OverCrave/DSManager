@@ -90,7 +90,7 @@ clean.doFirst {
 shadowJar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     destinationDirectory = file("$rootDir/out/")
-    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
     archiveBaseName = 'TokenManager'
     archiveClassifier = null
 
