@@ -44,11 +44,6 @@ repositories {
     }
 
     maven {
-        name 'mvdw-repo'
-        url 'https://repo.mvdw-software.be/content/groups/public/'
-    }
-
-    maven {
         name 'clip-repo'
         url 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
     }
