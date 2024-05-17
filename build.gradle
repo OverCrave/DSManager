@@ -24,12 +24,13 @@ version '3.2.8'
 compileJava.options.encoding = 'UTF-8'
 
 processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
     def group = project.group.toString() + "." + project.name.toLowerCase() + ".shaded"
 
     from(sourceSets.main.resources.srcDirs) {
         include '**/*.yml'
         filter(ReplaceTokens, tokens: [NAME: project.name, VERSION: project.version, SHADED_GROUP: group])
-        duplicatesStrategy = DuplicatesStrategy.INHERIT
     }
 }
 
