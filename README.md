@@ -4,6 +4,8 @@
 
 A simple economy plugin for spigot. <a href="https://www.spigotmc.org/resources/tokenmanager.8610/">Spigot Project Page</a>
 
+**This fork is made to be compatible with Minecraft 1.20 and up, versions 1.19 and below are not being supported!**
+
 ---
 
 * **[Wiki](https://github.com/Realizedd/TokenManager/wiki)**
@@ -37,7 +39,7 @@ Maven:
 #### Dependency
 Gradle:
 ```groovy
-compile (group: 'com.github.Realizedd', name: 'TokenManager', version: '3.2.4') {
+compile (group: 'com.github.OverCrave', name: 'TokenManager', version: '3.5.0') {
     transitive = false
 }
 ```  
@@ -45,9 +47,9 @@ compile (group: 'com.github.Realizedd', name: 'TokenManager', version: '3.2.4') 
 Maven:
 ```xml
 <dependency>
-    <groupId>com.github.Realizedd</groupId>
+    <groupId>com.github.OverCrave</groupId>
     <artifactId>TokenManager</artifactId>
-    <version>3.2.4</version>
+    <version>3.5.0</version>
     <exclusions>
         <exclusion>
             <groupId>*</groupId>
