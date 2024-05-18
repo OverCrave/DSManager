@@ -5,12 +5,14 @@ import org.bukkit.Bukkit;
 
 public final class CompatUtil {
 
-    private static final long SUB_VERSION;
+    private static final long SUB_VERSION = 21;
 
+    /*
     static {
         final String packageName = Bukkit.getServer().getClass().getPackage().getName();
         SUB_VERSION = NumberUtil.parseLong(packageName.substring(packageName.lastIndexOf('.') + 1).split("_")[1]).orElse(0);
     }
+    */
 
     private CompatUtil() {}
 
