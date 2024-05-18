@@ -1,27 +1,27 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
-buildscript {
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-    }
-
-    dependencies {
-        classpath 'com.github.johnrengelman:shadow:8.1.1'
-        classpath 'io.freefair.gradle:lombok-plugin:8.6'
-    }
-}
-
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'io.freefair.lombok' version '8.6'
 }
 
-group 'me.realized'
-version '3.5.0'
+group = 'me.realized'
+version = '3.5.0'
 
-compileJava.options.encoding = 'UTF-8'
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    withSourcesJar()
+    withJavadocJar()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
 
 processResources {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
@@ -38,28 +38,28 @@ repositories {
     mavenCentral()
 
     maven {
-        name 'spigot-repo'
-        url 'https://repo.papermc.io/repository/maven-public/'
+        name = 'spigot-repo'
+        url = 'https://repo.papermc.io/repository/maven-public/'
     }
 
     maven {
-        name 'bungeecord-repo'
-        url 'https://oss.sonatype.org/content/repositories/snapshots'
+        name = 'bungeecord-repo'
+        url = 'https://oss.sonatype.org/content/repositories/snapshots'
     }
 
     maven {
-        name 'clip-repo'
-        url 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
+        name = 'clip-repo'
+        url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
     }
 
     maven {
-        name 'codemc-repo'
-        url 'https://repo.codemc.io/repository/maven-public/'
+        name = 'codemc-repo'
+        url = 'https://repo.codemc.io/repository/maven-public/'
     }
 
     maven {
-        name 'inventive-repo'
-        url 'https://repo.inventivetalent.org/content/groups/public/'
+        name = 'inventive-repo'
+        url = 'https://repo.inventivetalent.org/content/groups/public/'
     }
 
     flatDir {
@@ -70,13 +70,11 @@ repositories {
 dependencies {
     implementation 'org.projectlombok:lombok:1.18.32'
     implementation 'io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT'
-    implementation (name: 'MVdWPlaceholderAPI-3.1.1') {
-        transitive = false
-    }
-    implementation name: 'Vault-1.6.7'
+    implementation files('libs/MVdWPlaceholderAPI-3.1.1.jar')
+    implementation files('libs/Vault-1.6.7.jar')
     implementation 'me.clip:placeholderapi:2.11.5'
 
-    // shaded dependencies
+    // Shaded dependencies
     implementation 'redis.clients:jedis:5.1.2'
     implementation 'org.apache.commons:commons-lang3:3.14.0'
     implementation 'org.apache.commons:commons-pool2:2.12.0'
@@ -85,19 +83,17 @@ dependencies {
     implementation 'org.bstats:bstats-bukkit:3.0.2'
 }
 
-clean.doFirst {
-    delete "$rootDir/out/"
+tasks.clean {
+    doFirst {
+        delete "$rootDir/out/"
+    }
 }
 
-shadowJar {
+tasks.shadowJar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     destinationDirectory = file("$rootDir/out/")
     archiveBaseName = 'TokenManager'
     archiveClassifier = null
-
-    java {
-        toolchain.languageVersion.set(JavaLanguageVersion.of(21))
-    }
 
     dependencies {
         include(dependency('redis.clients:.*'))
@@ -116,4 +112,6 @@ shadowJar {
     relocate 'org.bstats', group + 'bstats'
 }
 
-build.dependsOn(shadowJar)
+tasks.build {
+    dependsOn tasks.shadowJar
+}
